@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:complexType name="lugarT">
+		<xsd:sequence>
+			<xsd:element name="nombre" type="xsd:string"/>
+			<xsd:element name="direccion" type="xsd:string"/>
+			<xsd:element name="sala" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="artistasT">
+		<xsd:sequence>
+			<xsd:element name="nombre" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="eventoT">
+		<xsd:sequence>
+			<xsd:element name="titulo" type="xsd:string"/>
+			<xsd:element name="descripcion" type="xsd:string"/>
+			<xsd:element name="lugar" type="lugarT"/>
+			<xsd:element name="hora" type="xsd:time"/>
+			<xsd:element name="artistas" type="artistasT"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="eventos">
+		<xsd:complexType>	
+			<xsd:sequence>
+				<xsd:element name="evento" type="eventoT" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="fecha" type="xsd:date" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
