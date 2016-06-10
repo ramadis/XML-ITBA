@@ -1,4 +1,4 @@
-let $row_events := doc("fdc-eventos-2012.xml")//ROW/DATE[contains(.,'2012-10-05')]/..
+let $row_events := doc("fdc-eventos-2012.xml")//ROW
 let $row_obras := doc("fdc-obras-2012.xml")//ROW
 let $row_artists := doc("fdc-artistas-2012.xml")//ROW
 
