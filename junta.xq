@@ -50,4 +50,5 @@ else <error>{ ('Fecha incorrecta. Ingrese con el formato YYYY-MM-DD') } </error>
   - Si no se encuentra la sede, no se muestra ni el nombre ni el lugar.
   - Si se encuentra la sede, se muestran los tags nombre y direccion, vacios o no, segun corresponda.
   - Se considero que el artista no sea NULL ni 0.
+  Comprobada validez de xml con xsd con http://www.freeformatter.com/xml-validator-xsd.html
  :)
