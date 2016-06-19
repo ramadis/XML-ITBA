@@ -13,17 +13,19 @@
 						"nombre": "<xsl:value-of select="nombre"/>",
 						"direccion": "<xsl:value-of select="direccion"/>",
 						"sala": "<xsl:value-of select="sala"/>"</xsl:for-each>					
-					 }
-				"hora" : "<xsl:value-of select="hora"/>",
-				"artistas" : [<xsl:for-each select="artistas"><xsl:for-each select="nombre">{"nombre" : "<xsl:value-of select="current()"/>"}<xsl:if test="not(position() = last())">,
+					 },
+				"hora" :"<xsl:value-of select="hora"/>",
+				"artistas": [<xsl:for-each select="artistas"><xsl:for-each select="nombre">{"nombre" : "<xsl:value-of select="current()"/>"}<xsl:if test="not(position() = last())">,
 					       </xsl:if>
 					</xsl:for-each>
 			</xsl:for-each>]
 			}
-		}
+		}<xsl:if test="not(position() = last())">,
+		</xsl:if>
+	
 		</xsl:for-each>
-	}]
-	}
+	]
+}
 </body>
 
 </html>
