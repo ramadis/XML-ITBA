@@ -1,16 +1,16 @@
 declare variable $fecha as xs:string external;
 
-<eventos>
-  <fecha> {if (matches($fecha , '^2012-10-([0-2][0-9]|30|31)$'))
-      then($fecha)
+<eventos fecha="
+    { if (matches($fecha , '^2012-10-(0[4-8]|11)$'))
+        then($fecha)
       else if (matches($fecha ,'^(\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01]))$'))
-      then ('No hay eventos en la fecha', $fecha)
-      else('Fecha incorrecta. Ingrese con el formato YYYY-MM-DD')}
-  </fecha>
+        then ('No hay eventos en la fecha', $fecha)
+      else('Fecha incorrecta. Ingrese con el formato YYYY-MM-DD')
+    }">
+  
   {for $evento in doc('fdc-eventos-2012.xml')//ROW/DATE[matches(., concat('^', $fecha, '$'))]/..
     return (
       <evento>
-        <hora>{ $evento/TIME/text() }</hora>
         {for $obra in doc('fdc-obras-2012.xml')//ROW
           where $obra/ID_PLAY[matches(., concat('^', $evento/ID_PLAY/text(), '$'))]
           return (<titulo> { $obra/TITLE/text()} </titulo>, <descripcion> { $obra/SYNOPSIS_ES/text() } </descripcion>)
@@ -22,10 +22,12 @@ declare variable $fecha as xs:string external;
           }
           <sala> { $evento/ROOMS/text() } </sala>
         </lugar>
+        <hora>{ $evento/TIME/text() }</hora>
         <artistas>
           {for $artista in doc('fdc-artistas-2012.xml')//ROW
-            where $artista/ID_ARTIST[matches(., concat('^', $evento/ID_ARTIST1/text(), '$'))]
-              | $artista/ID_ARTIST[matches(., concat('^', $evento/ID_ARTIST2/text(), '$'))]
+            where (($artista/ID_ARTIST[matches(., concat('^', $evento/ID_ARTIST1/text(), '$'))]
+              or $artista/ID_ARTIST[matches(., concat('^', $evento/ID_ARTIST2/text(), '$'))])
+              and $artista/ID_ARTIST[not(matches(.,'NULL|0'))])
             return (<nombre> { $artista/NAME/text() } </nombre>)
           }
         </artistas>
